@@ -18,24 +18,45 @@ contract('SimpleWallet', function(accounts) {
     });
 
     it("should add accounts to the allowed list", function(){
-        var mycontract;
         SimpleWallet.deployed().then(function(instance){
             return instance.isAllowedToSend.call(accounts[1]);
         }).then(function(isAllowed){
             assert(isAllowed == false, 'the other account was allowed');
-        }).then(function(){
+        });
+        SimpleWallet.deployed().then(function(instance){
             return instance.allowAddressToSendMoney(accounts[1]);
-        }).then(function(){
+        });
+        SimpleWallet.deployed().then(function(instance){
             return instance.isAllowedToSend.call(accounts[1]);
         }).then(function(isAllowed){
             assert(isAllowed == true, 'the other account was not allowed');
-        }).then(function(){
+        });
+        SimpleWallet.deployed().then(function(instance){
             return instance.disallowAddressToSendMoney.call(accounts[1]);
-        }).then(function(){
+        });
+        SimpleWallet.deployed().then(function(instance){
             return instance.isAllowed.call(accounts[1]);
         }).then(function(isAllowed){
             assert(isAllowed == false, 'the account was allowed');
-        })
+        });
+    });
+
+    it("should check deposit events", function(done){
+        SimpleWallet.deployed().then(function(instance){
+            var meta = instance;
+            var event = meta.allEvents();
+            event.watch(function(error, result){
+                if(error){
+                    console.err(error);
+                } else {
+                    assert(result.event == 'Deposit');
+                    assert(web3.fromWei(result.args.amount.valueOf(), 'ether') == 1);
+                    assert(result.args._sender.valueOf() == web3.eth.accounts[0]);
+                    event.stopWatching();
+                    done();
+                }
+            })
+        });
     })
 });
 
