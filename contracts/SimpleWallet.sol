@@ -11,20 +11,16 @@ contract SimpleWallet {
         owner = msg.sender;
     }
 
-    function() public {
-        if(msg.sender == owner || isAllowedToSendFundsMapping[msg.sender] == true){
-            Deposit(msg.sender, msg.value);
-        } else {
-            revert();
-        }
+    function() public payable{
+        require(msg.sender == owner || isAllowedToSendFundsMapping[msg.sender] == true);
+        Deposit(msg.sender, msg.value);
+        
     }
 
     function sendFunds(uint amount, address receiver) public returns (uint) {
         if(msg.sender == owner || isAllowedToSendFundsMapping[msg.sender]) {
             if(this.balance >= amount){
-                if(!receiver.send(amount)) {
-                    revert();
-                }
+                require(receiver.send(amount) == true);
                 Withdrawl(msg.sender, amount, receiver);
                 return this.balance;
             }

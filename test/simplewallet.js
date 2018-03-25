@@ -55,9 +55,24 @@ contract('SimpleWallet', function(accounts) {
                     event.stopWatching();
                     done();
                 }
-            })
+            });
+            web3.eth.sendTransaction({from : web3.eth.accounts[0], to: meta.address, value: web3.toWei(1, 'ether')});
         });
-    })
+    });
+
+    it("should check not allowed Deposit Events", function(done){
+        SimpleWallet.deployed().then(function(instance){
+            var meta = instance;
+            web3.eth.sendTransaction({from : web3.eth.accounts[1], to: meta.address, value: web3.toWei(1, 'ether')}, function(error, result){
+                if(error){
+                   console.err(error);
+                } else {
+                    done();
+                }
+            });
+
+        });
+    });
 });
 
 
