@@ -10,7 +10,16 @@ App = {
         App.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
         //   }
         web3 = new Web3(App.web3Provider);
-        // web3.eth.getAccounts(function(err, acc){console.log(acc)});          
+        // web3.eth.getAccounts(function(err, acc){console.log(acc)});
+        // return App.initContract();          
+    },
+
+    initContract: function(){
+        $.getJSON('../build/contracts/SimpleWallet.json', function(err, data){
+            var walletArifact = data;
+            App.contract.SimpleWallet = TruffleContract(walletArifact);
+            App.contract.SimpleWallet.setProvider(App.web3provider);
+        });
     },
 
     getAccounts: function(){
@@ -33,10 +42,16 @@ App = {
 $(function() {
     $(window).load(function() {
       App.init();
+      App.initContract();
     });
 });
 
 $('#send-funds').click(function(){
     $('#accounts').empty();
     App.getAccounts();
+});
+
+$('#deposit-funds').click(function(){
+    var address = input;
+    var amount = parseInt();
 });
