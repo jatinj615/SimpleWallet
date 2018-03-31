@@ -34,12 +34,12 @@
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <ul class="nav nav-tabs col-md-offset-4" id="myTab" role="tablist" style="margin-left:55rem ;margin-right: 53rem">
+                            <ul class="nav nav-tabs col-md-offset-4" id="myTab" role="tablist" style="margin-left:55rem ;margin-right: 52rem">
                                 <li class="nav-item">
                                     <a class="nav-link active" onclick="" id="profile" data-toggle="tab" href="#events" role="tab" aria-controls="home" aria-selected="true">Events</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" onclick="" id="view-stu-attendance" data-toggle="tab" href="#sendFunds" role="tab" aria-controls="profile" aria-selected="false">Send Funds</a>
+                                    <a class="nav-link" id="send-funds" data-toggle="tab" href="#sendFunds" role="tab" aria-controls="profile" aria-selected="false">Send Funds</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
@@ -47,7 +47,25 @@
                                     <p>Hello</p>
                                 </div>
                                 <div class="tab-pane fade col-md-offset-3 col-md-6" id="sendFunds" role="tabpanel" aria-labelledby="contact-tab">
-                                    
+                                    <h1 class="col-sm-1">Deposit</h1><br><br><br><br>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" style="margin-top:1em"><b>Address From</b></label>
+                                        <div class="col-sm-8">
+                                          <select class="form-control" id="accounts">
+                                          </select>
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" style="margin-top:1em"><b>Amount In Ether</b></label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" type="number" min="1">
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="form-group">
+                                        <div class="col-sm-4" style="padding-left:12.5em">
+                                            <button type="Submit" class="btn btn-primary">Submit</button>    
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
