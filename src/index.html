@@ -23,7 +23,9 @@
                 </div>
                 <div class="be-right-navbar">
                 <div class="page-title"><span>Simple Wallet</span></div>
-                <ul class="nav navbar-nav navbar-right be-icons-nav">
+                <ul class="nav navbar-nav navbar-right">
+                    <div class="page-title" id="bal"></div>
+                    <div class="page-title" id="baleth"></div>
                 </ul>
                 </div>
             </div>
@@ -36,16 +38,13 @@
                         <div class="panel-body">
                             <ul class="nav nav-tabs col-md-offset-4" id="myTab" role="tablist" style="margin-left:55rem ;margin-right: 52rem">
                                 <li class="nav-item">
-                                    <a class="nav-link active" onclick="" id="profile" data-toggle="tab" href="#events" role="tab" aria-controls="home" aria-selected="true">Events</a>
+                                    <a class="nav-link active" id="event" data-toggle="tab" href="#events" role="tab" aria-controls="home" aria-selected="true">Events</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="send-funds" data-toggle="tab" href="#sendFunds" role="tab" aria-controls="profile" aria-selected="false">Send Funds</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade col-md-offset-3 col-md-6" id="events" role="tabpanel" aria-labelledby="contact-tab">
-                                    <p>Hello</p>
-                                </div>
                                 <div class="tab-pane fade col-md-offset-3 col-md-6" id="sendFunds" role="tabpanel" aria-labelledby="contact-tab">
                                     <h1 class="col-sm-1">Deposit</h1><br><br><br><br>
                                     <div class="form-group">
@@ -58,12 +57,31 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" style="margin-top:1em"><b>Amount In Ether</b></label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" type="number" min="1">
+                                            <input class="form-control" type="number" min="1" id="amount">
                                         </div>
                                     </div><br><br><br>
                                     <div class="form-group">
                                         <div class="col-sm-4" style="padding-left:12.5em">
-                                            <button type="Submit" class="btn btn-primary" id="deposit-funds">Submit</button>    
+                                            <button type="Submit" class="btn btn-primary" id="deposit-funds">Send Funds</button>    
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <h1 class="col-sm-1">Withdraw</h1><br><br><br><br>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" style="margin-top:1em"><b>Address To</b></label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" type="text" id="addressTo">
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" style="margin-top:1em"><b>Amount In Ether</b></label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" type="number" min="1" id="withdrawAmount">
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="form-group">
+                                        <div class="col-sm-4" style="padding-left:12.5em">
+                                            <button type="Submit" class="btn btn-primary" id="withdraw-funds">Withdraw</button>    
                                         </div>
                                     </div>
                                 </div>
@@ -89,6 +107,8 @@
     <script src="//cdn.viralwoot.com/v2/assets/lib/jqvmap/jquery.vmap.min.js" type="text/javascript"></script>
     <script src="//cdn.viralwoot.com/v2/assets/lib/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
     <script src="//cdn.viralwoot.com/v2/assets/js/app-dashboard.js" type="text/javascript"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

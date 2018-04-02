@@ -24,20 +24,19 @@ contract SimpleWallet {
     }
 
     function() public payable{
-        require(msg.sender == owner || isAllowedToSendFundsMapping[msg.sender].allowed == true);
+        require(isAllowedToSend(msg.sender));
         Deposit(msg.sender, msg.value);
-        
     }
 
-    function sendFunds(uint amount, address receiver) public returns (uint) {
+    function sendFunds(uint amount, address receiver) public payable returns (uint) {
         if(isAllowedToSend(msg.sender)) {
-            if(this.balance >= amount){
-                require(receiver.send(amount) == true);
+            if(address(this).balance >= amount){
+                receiver.transfer(amount);
                 Withdrawl(msg.sender, amount, receiver);
                 isAllowedToSendFundsMapping[msg.sender].amount_sends++;
                 isAllowedToSendFundsMapping[msg.sender].withdrawls[isAllowedToSendFundsMapping[msg.sender].amount_sends].to = receiver;
                 isAllowedToSendFundsMapping[msg.sender].withdrawls[isAllowedToSendFundsMapping[msg.sender].amount_sends].amount = amount;
-                return this.balance;
+                return address(this).balance;
             }
         }
     }
