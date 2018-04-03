@@ -73,6 +73,21 @@ App = {
         });
     },
 
+    getWithdrawls: function(){
+        $('#withdrawls').empty();
+        contract = App.contract;
+        contract.SimpleWallet.deployed().then(function(instance){
+            instance.getNumberWithdrawls.call(web3.eth.accounts[0]).then(function(numbers){
+                numberWithdrawls = numbers.toNumber();
+                for(i = 1 ; i <= numberWithdrawls; i++){
+                    instance.getWithdrawls.call(web3.eth.accounts[0], i).then(function(result){
+                        $('#withdrawls').append("</br><b>To : </b>"+result[0]+"</br><b>Amount : </b>"+web3.fromWei(result[1], 'ether')+"</br></br>")
+                    });
+                }
+            });
+        });
+    }
+
     
 }
 
@@ -97,4 +112,8 @@ $('#withdraw-funds').click(function(){
     var amount = parseInt($('#withdrawAmount').val());
     var address = $('#addressTo').val();
     App.withdrawFunds(amount, address);
+});
+
+$('#withdrawlList').click(function(){
+    App.getWithdrawls();
 });

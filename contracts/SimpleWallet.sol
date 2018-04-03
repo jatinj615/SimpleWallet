@@ -46,10 +46,14 @@ contract SimpleWallet {
         }
     }
 
-    
-    // function getWithdrawls() {
 
-    // }
+    function getNumberWithdrawls(address _address) public constant returns (uint) {
+        return isAllowedToSendFundsMapping[_address].amount_sends;
+    }
+
+    function getWithdrawls(address _address, uint index) public constant returns (address, uint) {
+        return (isAllowedToSendFundsMapping[_address].withdrawls[index].to, isAllowedToSendFundsMapping[_address].withdrawls[index].amount);
+    }
 
     function allowAddressToSendMoney(address _address) public {
         if(msg.sender == owner) {
