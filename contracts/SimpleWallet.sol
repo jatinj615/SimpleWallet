@@ -23,12 +23,16 @@ contract SimpleWallet {
         owner = msg.sender;
     }
 
+    function getOwner() public view returns (address){
+        return owner;
+    }
+
     function() public payable{
         require(isAllowedToSend(msg.sender));
         Deposit(msg.sender, msg.value);
     }
 
-    function sendFunds(uint amount, address receiver) public payable returns (uint) {
+    function sendFunds(uint amount, address receiver) public returns (uint) {
         if(isAllowedToSend(msg.sender)) {
             if(address(this).balance >= amount){
                 receiver.transfer(amount);
@@ -36,10 +40,16 @@ contract SimpleWallet {
                 isAllowedToSendFundsMapping[msg.sender].amount_sends++;
                 isAllowedToSendFundsMapping[msg.sender].withdrawls[isAllowedToSendFundsMapping[msg.sender].amount_sends].to = receiver;
                 isAllowedToSendFundsMapping[msg.sender].withdrawls[isAllowedToSendFundsMapping[msg.sender].amount_sends].amount = amount;
-                return address(this).balance;
+                uint balance = address(this).balance;
+                return balance;
             }
         }
     }
+
+    
+    // function getWithdrawls() {
+
+    // }
 
     function allowAddressToSendMoney(address _address) public {
         if(msg.sender == owner) {

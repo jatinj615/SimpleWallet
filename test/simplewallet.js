@@ -73,6 +73,18 @@ contract('SimpleWallet', function(accounts) {
 
         });
     });
+
+    it('should check send funds function', function(){
+        SimpleWallet.deployed().then(function(instance){
+            instance.sendFunds(web3.toWei(1, 'ether'), accounts[2]).then(function(err, result){
+                if(err){
+                    console.log(err);
+                } else {
+                    console.log(result);
+                }
+            })
+        });
+    });
 });
 
 

@@ -60,12 +60,12 @@ App = {
             $('#bal').html('Balance : '+balance);
             $('#baleth').html('Balance In Ether : '+balanceInEther);
         });
-    },
+    }, 
 
     withdrawFunds: function(amount, address){
+        amount = web3.toWei(amount, 'ether');
         contract = App.contract;
         contract.SimpleWallet.deployed().then(function(instance){
-            console.log(instance.address);
             instance.sendFunds(amount, address, {from: web3.eth.accounts[0], gas:3000000}).then(function(newBal){
                 console.log(newBal);
                 return App.getBalance();
@@ -97,4 +97,4 @@ $('#withdraw-funds').click(function(){
     var amount = parseInt($('#withdrawAmount').val());
     var address = $('#addressTo').val();
     App.withdrawFunds(amount, address);
-})
+});
